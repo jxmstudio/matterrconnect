@@ -90,8 +90,8 @@ export function QuoteForm({
       */}
       {isDemoDeployment && (
         <p className="border-l-2 border-clay bg-stone/60 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
-          <span className="font-medium text-foreground">Demo site.</span> The
-          form works, but enquiries aren&apos;t delivered to an inbox yet —
+          <span className="font-medium text-foreground">Demo site.</span>{" "}
+          The form works, but enquiries aren&apos;t delivered to an inbox yet —
           that&apos;s switched on at launch.
         </p>
       )}
