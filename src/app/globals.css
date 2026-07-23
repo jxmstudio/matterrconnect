@@ -1,0 +1,196 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------------------
+   Matter Construction — design tokens
+   Light editorial: warm off-white canvas, near-black ink, one clay accent.
+   The clay is used ONLY for CTAs, active states and rules. Its scarcity is
+   what makes it read as premium — don't spend it on decoration.
+--------------------------------------------------------------------------- */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+  --font-mono: var(--mono-stack);
+
+  /* Brand scale — use these directly when a semantic token would be a lie */
+  --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-clay: var(--clay);
+  --color-clay-dark: var(--clay-dark);
+  --color-stone: var(--stone);
+  --color-hairline: var(--hairline);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Editorial rhythm */
+  --spacing-section: 6rem;
+  --spacing-section-lg: 9rem;
+}
+
+:root {
+  --canvas: #faf9f7;
+  --ink: #1a1917;
+  --clay: #b4541e;
+  --clay-dark: #8f4218;
+  --stone: #efede8;
+  --hairline: #e3dfd8;
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
+
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+
+  /* Primary is the clay CTA. Contrast on white measures 4.97:1 — AA for text. */
+  --primary: var(--clay);
+  --primary-foreground: #fffdfb;
+
+  --secondary: var(--stone);
+  --secondary-foreground: var(--ink);
+
+  --muted: #f2f0ec;
+  --muted-foreground: #6b6862;
+
+  /* shadcn uses --accent for hover/active surfaces, not for brand accent */
+  --accent: var(--stone);
+  --accent-foreground: var(--ink);
+
+  --destructive: #b3261e;
+
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--clay);
+
+  --radius: 0.25rem;
+
+  --mono-stack: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Display type wants tight tracking; body type does not. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-balance;
+    letter-spacing: -0.03em;
+  }
+
+  h5,
+  h6 {
+    @apply font-heading;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  ::selection {
+    background: var(--clay);
+    color: var(--primary-foreground);
+  }
+
+  /* Anchor targets clear the sticky header */
+  :target {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@layer components {
+  /* Small caps eyebrow used above section headings throughout the site */
+  .eyebrow {
+    @apply font-heading text-xs font-medium uppercase text-muted-foreground;
+    letter-spacing: 0.16em;
+  }
+
+  /* Standard page gutter. One definition, used everywhere. */
+  .container-editorial {
+    @apply mx-auto w-full max-w-[76rem] px-6 md:px-10;
+  }
+
+  /* Narrower measure for long-form prose — ~68 characters */
+  .measure {
+    @apply max-w-[38rem];
+  }
+}
+
+@layer utilities {
+  /* Scroll-triggered entrance. Progressive: without JS the element is visible,
+     because .reveal only hides once .js-reveal is applied by the observer. */
+  .js-reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+
+  .js-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
