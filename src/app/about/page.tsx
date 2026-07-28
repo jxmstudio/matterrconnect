@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/json-ld";
@@ -41,6 +42,20 @@ export default function AboutPage() {
           <div className="grid gap-12 md:grid-cols-12">
             <div className="md:col-span-4">
               <p className="eyebrow">The story</p>
+              <Reveal className="mt-8">
+                <div className="relative aspect-[4/5] overflow-hidden bg-stone">
+                  <Image
+                    src="/images/team/jack.jpg"
+                    alt="Jack, founder of Matter Construction, in a branded crew"
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Jack, founder of Matter Construction
+                </p>
+              </Reveal>
             </div>
 
             <Reveal className="md:col-span-8">

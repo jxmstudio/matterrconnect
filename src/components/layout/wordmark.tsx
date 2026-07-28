@@ -1,52 +1,33 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 import { site } from "@/content/site";
 
 /**
- * Typeset wordmark, used in place of a logo file.
+ * Brand mark. The client's real logo (a horizontal lockup) is used site-wide;
+ * every header/footer usage goes through here, so this is the only place to
+ * touch if the asset ever changes.
  *
- * The client has not supplied a logo. Rather than fake one, the brand mark is
- * pure type — which is both honest and consistent with the editorial direction.
- *
- * WHEN THE REAL LOGO ARRIVES: replace the contents of this component with an
- * <Image>. Nothing else in the codebase needs to change; every usage goes
- * through here.
+ * The site is light-only, so the navy-on-transparent logo reads cleanly on
+ * every surface it lands on. `stacked` is retained for call-site compatibility
+ * but no longer changes the layout — the supplied lockup is a single line.
  */
 export function Wordmark({
   className,
   stacked = true,
 }: {
   className?: string;
-  /** Two-line lockup (header/footer) vs single line (tight spaces). */
+  /** Kept for API compatibility; the supplied logo is a single-line lockup. */
   stacked?: boolean;
 }) {
+  void stacked;
   return (
-    <span
-      className={cn("font-heading inline-flex leading-none", className)}
-      aria-label={site.name}
-    >
-      {stacked ? (
-        <span className="flex flex-col gap-[0.15em]">
-          <span
-            className="text-[1.05em] font-semibold"
-            style={{ letterSpacing: "-0.04em" }}
-          >
-            MATTER
-          </span>
-          <span
-            className="text-[0.42em] font-medium opacity-70"
-            style={{ letterSpacing: "0.34em" }}
-          >
-            CONSTRUCTION
-          </span>
-        </span>
-      ) : (
-        <span className="font-semibold" style={{ letterSpacing: "-0.03em" }}>
-          MATTER
-          <span className="ml-[0.4em] font-medium opacity-60">
-            CONSTRUCTION
-          </span>
-        </span>
-      )}
-    </span>
+    <Image
+      src="/images/brand/logo.png"
+      alt={site.name}
+      width={670}
+      height={148}
+      className={cn("h-7 w-auto md:h-8", className)}
+    />
   );
 }

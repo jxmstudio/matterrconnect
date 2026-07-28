@@ -70,6 +70,42 @@ export const projects: Project[] = [
     },
     featured: true,
   },
+  {
+    slug: "timber-entrance-deck",
+    title: "Timber entrance deck",
+    location: "Bay of Plenty",
+    serviceSlug: "residential-property-maintenance",
+    year: "2026",
+    summary:
+      "A hardwood entrance deck built to wrap the corner of the house and sit flush with the door threshold — a level, square approach where there was bare ground before.",
+    body: [
+      "A hardwood deck built across the entrance of a home, stepping down to ground level and turning the corner to meet the front door. The boards are laid to a consistent gap with a clean picture-frame edge, and the platform sits square to the brickwork.",
+      "A deck like this is as much about what you can't see — level bearers, properly spaced joists, fixings that won't lift or rust — as the finish on top. Get that right and it stays flat and quiet underfoot for years.",
+    ],
+    cover: {
+      src: "/images/projects/timber-entrance-deck.jpg",
+      alt: "Hardwood timber entrance deck wrapping the corner of a white-brick house and meeting a black front door",
+    },
+    featured: true,
+  },
+  {
+    slug: "garden-studio-fitout",
+    title: "Garden studio fit-out",
+    location: "Bay of Plenty",
+    serviceSlug: "renovations-structural-repairs",
+    year: "2026",
+    summary:
+      "A standalone garden room lined, finished and fitted out as a calm retreat — recessed lighting, fresh linings and a floor that ties the space together.",
+    body: [
+      "Not every job is a repair. This is a standalone garden room finished as a quiet retreat — somewhere to read, sit and listen to music away from the main house.",
+      "The walls and ceiling are lined and painted, the lighting is recessed for an even, soft wash, and the flooring runs the length of the room. A small footprint made to feel considered rather than cramped.",
+    ],
+    cover: {
+      src: "/images/projects/garden-studio-fitout.jpg",
+      alt: "Finished garden studio interior with lined walls, recessed ceiling lighting, armchairs, bookshelves and a tapestry",
+    },
+    featured: true,
+  },
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
