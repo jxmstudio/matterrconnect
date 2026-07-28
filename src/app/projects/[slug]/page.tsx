@@ -4,12 +4,13 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowRightIcon } from "lucide-react";
 
+import { BeforeAfter } from "@/components/before-after";
 import { JsonLd } from "@/components/json-ld";
 import { Reveal } from "@/components/reveal";
 import { CtaBand } from "@/components/sections/cta-band";
 import { PageHeader } from "@/components/sections/page-header";
 import { ProjectCard } from "@/components/sections/project-card";
-import { getProject, projects, type ProjectImage } from "@/content/projects";
+import { getProject, projects } from "@/content/projects";
 import { getService } from "@/content/services";
 import { site } from "@/content/site";
 import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
@@ -34,40 +35,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description: project.summary,
     path: `/projects/${project.slug}`,
   });
-}
-
-/** Labelled before/after pane. */
-function Plate({
-  image,
-  label,
-  priority = false,
-}: {
-  image: ProjectImage;
-  label: string;
-  priority?: boolean;
-}) {
-  return (
-    <figure>
-      <div className="relative aspect-[3/4] overflow-hidden bg-stone">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          priority={priority}
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover"
-        />
-        <span className="absolute top-4 left-4 bg-ink/85 px-3 py-1 text-xs font-medium tracking-[0.16em] text-[color:var(--canvas)] uppercase">
-          {label}
-        </span>
-      </div>
-      {image.caption && (
-        <figcaption className="mt-4 text-sm leading-relaxed text-muted-foreground">
-          {image.caption}
-        </figcaption>
-      )}
-    </figure>
-  );
 }
 
 export default async function ProjectPage({ params }: Params) {
@@ -114,13 +81,12 @@ export default async function ProjectPage({ params }: Params) {
       </PageHeader>
 
       {/* Before / after. The whole point of the gallery — it shows the work
-          nobody sees once the linings go back on. */}
+          nobody sees once the linings go back on. Drag the handle to compare. */}
       {project.before && project.after && (
         <section className="border-b border-border">
           <div className="container-editorial py-16 md:py-24">
-            <Reveal className="grid gap-8 md:grid-cols-2 md:gap-12">
-              <Plate image={project.before} label="Before" priority />
-              <Plate image={project.after} label="After" />
+            <Reveal className="mx-auto max-w-xl">
+              <BeforeAfter before={project.before} after={project.after} />
             </Reveal>
           </div>
         </section>

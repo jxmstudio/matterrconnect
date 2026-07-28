@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/reveal";
+import { AreaMarquee } from "@/components/sections/area-marquee";
 import { site } from "@/content/site";
 
 /**
@@ -20,16 +21,7 @@ export function ServiceArea() {
 
           <div className="md:col-span-8">
             <Reveal>
-              <ul className="flex flex-wrap gap-x-3 gap-y-3">
-                {site.location.areasServed.map((area) => (
-                  <li
-                    key={area}
-                    className="border border-border px-4 py-2 text-sm text-muted-foreground"
-                  >
-                    {area}
-                  </li>
-                ))}
-              </ul>
+              <AreaMarquee areas={site.location.areasServed} />
               <p className="measure mt-8 text-sm leading-relaxed text-muted-foreground">
                 Not on the list? We travel for the right job — give us a call
                 and we&apos;ll tell you straight whether we&apos;re the right

@@ -164,6 +164,27 @@
   }
 }
 
+/* Ambient motion. Both are gated behind `motion-safe:` at the call site, so
+   they never run under prefers-reduced-motion. */
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* The track holds two identical copies; -50% advances exactly one copy. */
+    transform: translateX(-50%);
+  }
+}
+
 @layer utilities {
   /* Scroll-triggered entrance. Progressive: without JS the element is visible,
      because .reveal only hides once .js-reveal is applied by the observer. */

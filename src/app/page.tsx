@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRightIcon } from "lucide-react";
@@ -7,6 +6,7 @@ import { CallButton, QuoteButton } from "@/components/call-button";
 import { Reveal } from "@/components/reveal";
 import { TrustBadges } from "@/components/trust-badges";
 import { CtaBand } from "@/components/sections/cta-band";
+import { HeroCarousel } from "@/components/sections/hero-carousel";
 import { ProjectCard } from "@/components/sections/project-card";
 import { ServiceArea } from "@/components/sections/service-area";
 import { ServicesGrid } from "@/components/sections/services-grid";
@@ -24,7 +24,8 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function HomePage() {
-  const hero = featuredProjects[0] ?? projects[0];
+  const heroProjects =
+    featuredProjects.length > 0 ? featuredProjects : projects.slice(0, 1);
 
   return (
     <>
@@ -67,31 +68,9 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-          {hero && (
+          {heroProjects.length > 0 && (
             <Reveal delay={120} className="lg:col-span-5">
-              <Link
-                href={`/projects/${hero.slug}`}
-                className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden bg-stone">
-                  <Image
-                    src={hero.cover.src}
-                    alt={hero.cover.alt}
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 40vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  />
-                </div>
-                <p className="mt-4 flex items-center gap-3 text-sm text-muted-foreground transition-colors group-hover:text-clay">
-                  <span className="eyebrow">Recent work</span>
-                  <span className="flex-1 truncate">{hero.title}</span>
-                  <ArrowRightIcon
-                    className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  />
-                </p>
-              </Link>
+              <HeroCarousel projects={heroProjects} />
             </Reveal>
           )}
         </div>
