@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-/** Favicon: the "M" mark on clay. Generated, so there's no asset to lose. */
+/** Favicon: the white "M" mark on navy, echoing the brand logo. Generated. */
 export default function Icon() {
   return new ImageResponse(
     (
@@ -14,8 +14,8 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#b4541e",
-          color: "#fffdfb",
+          background: "#0d1b2e",
+          color: "#eef2f8",
           fontSize: 42,
           fontWeight: 700,
           letterSpacing: "-0.04em",

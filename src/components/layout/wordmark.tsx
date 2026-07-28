@@ -8,9 +8,10 @@ import { site } from "@/content/site";
  * every header/footer usage goes through here, so this is the only place to
  * touch if the asset ever changes.
  *
- * The site is light-only, so the navy-on-transparent logo reads cleanly on
- * every surface it lands on. `stacked` is retained for call-site compatibility
- * but no longer changes the layout — the supplied lockup is a single line.
+ * The site runs on a deep-navy canvas, so the reversed (white-on-transparent)
+ * lockup is the one that reads across the chrome. `stacked` is retained for
+ * call-site compatibility but no longer changes the layout — the supplied
+ * lockup is a single line.
  */
 export function Wordmark({
   className,
@@ -23,7 +24,7 @@ export function Wordmark({
   void stacked;
   return (
     <Image
-      src="/images/brand/logo.png"
+      src="/images/brand/logo-reversed.png"
       alt={site.name}
       width={670}
       height={148}

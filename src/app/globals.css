@@ -6,9 +6,11 @@
 
 /* ---------------------------------------------------------------------------
    Matter Construction — design tokens
-   Light editorial: warm off-white canvas, near-black ink, one clay accent.
-   The clay is used ONLY for CTAs, active states and rules. Its scarcity is
-   what makes it read as premium — don't spend it on decoration.
+   Deep-navy editorial: navy canvas, near-white ink, one cool steel-blue accent
+   drawn from the brand logo. The accent is still exposed through the legacy
+   `--clay` token name (used site-wide), but its value is now blue, not
+   terracotta. It's used ONLY for CTAs, active states and rules — its scarcity
+   is what makes it read as premium, so don't spend it on decoration.
 --------------------------------------------------------------------------- */
 
 @theme inline {
@@ -58,36 +60,36 @@
 }
 
 :root {
-  --canvas: #faf9f7;
-  --ink: #1a1917;
-  --clay: #b4541e;
-  --clay-dark: #8f4218;
-  --stone: #efede8;
-  --hairline: #e3dfd8;
+  --canvas: #0d1b2e;
+  --ink: #eef2f8;
+  --clay: #86abe0;
+  --clay-dark: #6d97d6;
+  --stone: #14273f;
+  --hairline: #26384f;
 
   --background: var(--canvas);
   --foreground: var(--ink);
 
-  --card: #ffffff;
+  --card: #16283f;
   --card-foreground: var(--ink);
-  --popover: #ffffff;
+  --popover: #16283f;
   --popover-foreground: var(--ink);
 
-  /* Primary is the clay CTA. Contrast on white measures 4.97:1 — AA for text. */
+  /* Primary is the steel-blue CTA. Navy text on the accent measures ~6:1 — AA. */
   --primary: var(--clay);
-  --primary-foreground: #fffdfb;
+  --primary-foreground: #0d1b2e;
 
   --secondary: var(--stone);
   --secondary-foreground: var(--ink);
 
-  --muted: #f2f0ec;
-  --muted-foreground: #6b6862;
+  --muted: #14273f;
+  --muted-foreground: #93a1ba;
 
   /* shadcn uses --accent for hover/active surfaces, not for brand accent */
   --accent: var(--stone);
   --accent-foreground: var(--ink);
 
-  --destructive: #b3261e;
+  --destructive: #f26b63;
 
   --border: var(--hairline);
   --input: var(--hairline);

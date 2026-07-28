@@ -23,7 +23,7 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#faf9f7",
+          background: "#0d1b2e",
           padding: "72px 80px",
           fontFamily: "sans-serif",
         }}
@@ -34,7 +34,7 @@ export default function OpengraphImage() {
               fontSize: 34,
               fontWeight: 700,
               letterSpacing: "-0.03em",
-              color: "#1a1917",
+              color: "#eef2f8",
             }}
           >
             MATTER
@@ -44,7 +44,7 @@ export default function OpengraphImage() {
               fontSize: 15,
               fontWeight: 500,
               letterSpacing: "0.34em",
-              color: "#6b6862",
+              color: "#93a1ba",
               marginTop: 6,
             }}
           >
@@ -59,14 +59,14 @@ export default function OpengraphImage() {
               fontWeight: 700,
               lineHeight: 1.04,
               letterSpacing: "-0.035em",
-              color: "#1a1917",
+              color: "#eef2f8",
               display: "flex",
               flexDirection: "column",
             }}
           >
             <span>Renovations done</span>
             <span>
-              <span style={{ color: "#b4541e" }}>properly</span>, by builders
+              <span style={{ color: "#86abe0" }}>properly</span>, by builders
             </span>
             <span>who turn up.</span>
           </div>
@@ -77,16 +77,16 @@ export default function OpengraphImage() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            borderTop: "1px solid #e3dfd8",
+            borderTop: "1px solid #26384f",
             paddingTop: 28,
             fontSize: 22,
-            color: "#6b6862",
+            color: "#93a1ba",
           }}
         >
           <span>
             {site.location.base} · {site.location.region}
           </span>
-          <span style={{ color: "#1a1917", fontWeight: 600 }}>
+          <span style={{ color: "#eef2f8", fontWeight: 600 }}>
             {site.phone.display}
           </span>
         </div>
