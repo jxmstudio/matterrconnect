@@ -52,7 +52,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
+        "sticky top-0 z-50 text-foreground transition-[background-color,border-color,backdrop-filter] duration-300",
         scrolled
           ? "border-b border-border bg-background/85 backdrop-blur-md"
           : "border-b border-transparent bg-transparent",
