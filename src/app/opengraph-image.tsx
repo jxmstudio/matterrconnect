@@ -64,11 +64,9 @@ export default function OpengraphImage() {
               flexDirection: "column",
             }}
           >
-            <span>Renovations done</span>
-            <span>
-              <span style={{ color: "#86abe0" }}>properly</span>, by builders
-            </span>
-            <span>who turn up.</span>
+            <span>Licensed builders</span>
+            <span>serving the</span>
+            <span>Bay of Plenty.</span>
           </div>
         </div>
 

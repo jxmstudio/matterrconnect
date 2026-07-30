@@ -11,9 +11,8 @@ import { ProjectCard } from "@/components/sections/project-card";
 import { ServiceArea } from "@/components/sections/service-area";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
-import { services } from "@/content/services";
+import { featuredServices } from "@/content/services";
 import { featuredProjects, projects } from "@/content/projects";
-import { commitments } from "@/content/qualifications";
 import { site } from "@/content/site";
 import { buildMetadata } from "@/lib/seo";
 
@@ -33,7 +32,7 @@ export default function HomePage() {
       {/* Hero — renovation-led, per the client's stated ideal job.           */}
       {/* Asymmetric: statement type left, real project photo right.          */}
       {/* ------------------------------------------------------------------ */}
-      <section className="relative -mt-20 pt-20">
+      <section className="dark relative -mt-20 bg-background pt-20 text-foreground">
         <div className="container-editorial grid items-center gap-12 py-14 md:py-20 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
             <Reveal>
@@ -41,22 +40,14 @@ export default function HomePage() {
                 {site.location.base} · {site.location.region}
               </p>
 
-              {/* Line breaks are forced only from `sm` up, where the measure
-                  is wide enough to hold them. On a phone the text wraps
-                  naturally instead of breaking mid-phrase. */}
               <h1 className="mt-6 text-[2.6rem] leading-[1.04] text-balance sm:text-6xl sm:text-left lg:text-[4.75rem]">
-                Renovations done
-                <br className="hidden sm:inline" />{" "}
-                <span className="text-clay">properly</span>, by builders
-                <br className="hidden sm:inline" /> who turn up.
+                Licensed builders serving the Bay of Plenty.
               </h1>
 
               <p className="measure mt-8 text-lg leading-relaxed text-muted-foreground">
                 Matter Construction is a licensed building company working
-                across {site.location.blurb}. Renovations, structural repairs
-                and weathertightness work — priced honestly, programmed
-                realistically, and finished to a standard we&apos;d accept in
-                our own home.
+                across {site.location.blurb}. Renovations, structural repairs,
+                leaky-home re-cladding and commercial building work.
               </p>
 
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
@@ -77,24 +68,6 @@ export default function HomePage() {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* Commitments — the "why us" that actually changes a hiring decision  */}
-      {/* ------------------------------------------------------------------ */}
-      <section className="border-t border-border bg-stone/50">
-        <div className="container-editorial py-20 md:py-28">
-          <ul className="grid gap-x-12 gap-y-12 md:grid-cols-3">
-            {commitments.map((item, i) => (
-              <Reveal as="li" key={item.title} delay={i * 90}>
-                <h2 className="text-2xl leading-tight">{item.title}</h2>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  {item.body}
-                </p>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------------ */}
       {/* Services                                                            */}
       {/* ------------------------------------------------------------------ */}
       <section className="border-t border-border">
@@ -103,7 +76,7 @@ export default function HomePage() {
             <div>
               <p className="eyebrow">What we do</p>
               <h2 className="mt-5 max-w-2xl text-4xl leading-[1.05] md:text-5xl">
-                Five things, done well
+                Renovations, re-cladding &amp; commercial work
               </h2>
             </div>
             <Link
@@ -118,7 +91,7 @@ export default function HomePage() {
             </Link>
           </Reveal>
 
-          <ServicesGrid services={services} className="mt-14" />
+          <ServicesGrid services={featuredServices} className="mt-14" />
         </div>
       </section>
 

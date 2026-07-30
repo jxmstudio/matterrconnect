@@ -79,7 +79,7 @@ export const services: Service[] = [
       "Rental property maintenance schedules",
       "General carpentry and handyman work",
     ],
-    featured: true,
+    featured: false,
   },
   {
     slug: "commercial-construction-maintenance",
@@ -99,7 +99,7 @@ export const services: Service[] = [
       "Site Safe certified crews",
       "Coordination with facilities managers and main contractors",
     ],
-    featured: false,
+    featured: true,
   },
   {
     slug: "residential-developments",

@@ -17,17 +17,15 @@ export function CtaBand({
   location: string;
 }) {
   return (
-    <section className="bg-ink text-[color:var(--canvas)]">
+    <section className="dark bg-background text-foreground">
       <div className="container-editorial py-20 md:py-28">
         <Reveal className="grid gap-10 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
-            <p className="eyebrow text-[color:var(--canvas)]/50">
-              Free, no-obligation quote
-            </p>
+            <p className="eyebrow">Free, no-obligation quote</p>
             <h2 className="mt-5 text-4xl leading-[1.05] md:text-5xl lg:text-6xl">
               {heading}
             </h2>
-            <p className="measure mt-6 text-base leading-relaxed text-[color:var(--canvas)]/70">
+            <p className="measure mt-6 text-base leading-relaxed text-muted-foreground">
               {body}
             </p>
           </div>
@@ -37,12 +35,12 @@ export function CtaBand({
             <QuoteButton
               size="xl"
               location={location}
-              className="border-[color:var(--canvas)]/25 bg-transparent text-[color:var(--canvas)] hover:bg-[color:var(--canvas)]/10 hover:text-[color:var(--canvas)]"
+              className="border-foreground/25 bg-transparent text-foreground hover:bg-foreground/10 hover:text-foreground"
             />
           </div>
         </Reveal>
 
-        <p className="mt-12 border-t border-[color:var(--canvas)]/15 pt-8 text-sm text-[color:var(--canvas)]/50">
+        <p className="mt-12 border-t border-foreground/15 pt-8 text-sm text-muted-foreground">
           Serving {site.location.blurb} · Licensed Building Practitioner
         </p>
       </div>

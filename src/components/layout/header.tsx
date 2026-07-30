@@ -44,6 +44,11 @@ export function Header() {
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
+  // The homepage opens on the navy hero band; while the header floats over it
+  // (before any scroll) it adopts the navy scale so its text and logo read
+  // light. Everywhere else the header sits on the light base.
+  const overHero = pathname === "/" && !scrolled;
+
   return (
     <header
       className={cn(
@@ -51,6 +56,7 @@ export function Header() {
         scrolled
           ? "border-b border-border bg-background/85 backdrop-blur-md"
           : "border-b border-transparent bg-transparent",
+        overHero && "dark",
       )}
     >
       <div className="container-editorial flex h-20 items-center justify-between gap-6">
@@ -58,7 +64,7 @@ export function Header() {
           href="/"
           className="rounded-sm text-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring md:text-xl"
         >
-          <Wordmark />
+          <Wordmark onDark={overHero} />
           <span className="sr-only">{site.name} — home</span>
         </Link>
 

@@ -6,11 +6,11 @@
 
 /* ---------------------------------------------------------------------------
    Matter Construction — design tokens
-   Deep-navy editorial: navy canvas, near-white ink, one cool steel-blue accent
-   drawn from the brand logo. The accent is still exposed through the legacy
-   `--clay` token name (used site-wide), but its value is now blue, not
-   terracotta. It's used ONLY for CTAs, active states and rules — its scarcity
-   is what makes it read as premium, so don't spend it on decoration.
+   Light base: white canvas, navy ink, one navy accent drawn from the brand
+   logo. Navy is reserved for a few "anchor" bands — the hero, the CTA bands,
+   the footer and the header while it floats over the hero — which opt into the
+   `.dark` scale below. The accent is exposed through the legacy `--clay` token
+   name (used site-wide); it's spent ONLY on CTAs, active states and rules.
 --------------------------------------------------------------------------- */
 
 @theme inline {
@@ -60,12 +60,57 @@
 }
 
 :root {
+  --canvas: #f8fafc;
+  --ink: #14213a;
+  --clay: #1e3a5f;
+  --clay-dark: #142942;
+  --stone: #eaeef4;
+  --hairline: #dbe2ec;
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
+
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+
+  /* Primary is the navy CTA. White text on the accent measures ~9:1 — AA+. */
+  --primary: var(--clay);
+  --primary-foreground: #ffffff;
+
+  --secondary: var(--stone);
+  --secondary-foreground: var(--ink);
+
+  --muted: #eef2f7;
+  --muted-foreground: #566276;
+
+  /* shadcn uses --accent for hover/active surfaces, not for brand accent */
+  --accent: var(--stone);
+  --accent-foreground: var(--ink);
+
+  --destructive: #b3261e;
+
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--clay);
+
+  --radius: 0.25rem;
+
+  --mono-stack: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+}
+
+/* Navy anchor scale. Applied per-section via className="dark" (hero, CTA bands,
+   footer, header-over-hero) to punctuate the light base without theming the
+   whole site. Custom properties cascade, so the .dark element and everything
+   inside it read these values. */
+.dark {
   --canvas: #0d1b2e;
   --ink: #eef2f8;
   --clay: #86abe0;
   --clay-dark: #6d97d6;
-  --stone: #14273f;
-  --hairline: #26384f;
+  --stone: #16283f;
+  --hairline: #2a3c54;
 
   --background: var(--canvas);
   --foreground: var(--ink);
@@ -75,17 +120,15 @@
   --popover: #16283f;
   --popover-foreground: var(--ink);
 
-  /* Primary is the steel-blue CTA. Navy text on the accent measures ~6:1 — AA. */
   --primary: var(--clay);
   --primary-foreground: #0d1b2e;
 
   --secondary: var(--stone);
   --secondary-foreground: var(--ink);
 
-  --muted: #14273f;
-  --muted-foreground: #93a1ba;
+  --muted: #16283f;
+  --muted-foreground: #9aa8bf;
 
-  /* shadcn uses --accent for hover/active surfaces, not for brand accent */
   --accent: var(--stone);
   --accent-foreground: var(--ink);
 
@@ -94,10 +137,6 @@
   --border: var(--hairline);
   --input: var(--hairline);
   --ring: var(--clay);
-
-  --radius: 0.25rem;
-
-  --mono-stack: ui-monospace, "SFMono-Regular", "Menlo", monospace;
 }
 
 @layer base {

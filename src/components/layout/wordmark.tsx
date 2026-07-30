@@ -8,23 +8,21 @@ import { site } from "@/content/site";
  * every header/footer usage goes through here, so this is the only place to
  * touch if the asset ever changes.
  *
- * The site runs on a deep-navy canvas, so the reversed (white-on-transparent)
- * lockup is the one that reads across the chrome. `stacked` is retained for
- * call-site compatibility but no longer changes the layout — the supplied
- * lockup is a single line.
+ * The site is a light base with navy anchor bands, so the logo comes in two
+ * finishes: the navy lockup for light surfaces (default) and the reversed
+ * white lockup for the navy bands. Pass `onDark` on a navy surface.
  */
 export function Wordmark({
   className,
-  stacked = true,
+  onDark = false,
 }: {
   className?: string;
-  /** Kept for API compatibility; the supplied logo is a single-line lockup. */
-  stacked?: boolean;
+  /** Use the white lockup — set this on navy surfaces (hero header, footer). */
+  onDark?: boolean;
 }) {
-  void stacked;
   return (
     <Image
-      src="/images/brand/logo-reversed.png"
+      src={onDark ? "/images/brand/logo-reversed.png" : "/images/brand/logo.png"}
       alt={site.name}
       width={670}
       height={148}

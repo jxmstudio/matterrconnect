@@ -80,7 +80,7 @@ export function HeroCarousel({ projects }: { projects: Project[] }) {
                     go(i);
                   }}
                   className={cn(
-                    "h-1.5 rounded-full bg-[color:var(--canvas)] transition-all duration-500",
+                    "h-1.5 rounded-full bg-[color:var(--foreground)] transition-all duration-500",
                     i === index ? "w-6 opacity-95" : "w-1.5 opacity-50 hover:opacity-80",
                   )}
                 />

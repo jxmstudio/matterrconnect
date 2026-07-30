@@ -27,10 +27,10 @@ export const qualifications: Qualification[] = [
     logo: null,
   },
   {
-    name: "Qualified Carpentry Level 4",
-    short: "Level 4 Carpentry",
+    name: "Qualified Builders",
+    short: "Qualified Builders",
     detail:
-      "New Zealand Certificate in Carpentry (Level 4) — the full trade qualification, not a partial or in-progress one.",
+      "A full trade qualification in carpentry — the complete certificate, not a partial or in-progress one.",
     logo: null,
   },
   {
@@ -45,21 +45,5 @@ export const qualifications: Qualification[] = [
     short: "First Aid Certified",
     detail: "Current St John first aid certification on site.",
     logo: null,
-  },
-];
-
-/** The short-form promises used in the homepage trust strip. */
-export const commitments = [
-  {
-    title: "We turn up",
-    body: "You'll know who's on site each day and what they're doing. If the programme moves, you hear it from us first.",
-  },
-  {
-    title: "Priced honestly",
-    body: "A written scope before we start, and variations agreed before they're carried out — not discovered on the final invoice.",
-  },
-  {
-    title: "Finished properly",
-    body: "The standard is what we'd accept in our own home. If it isn't right, it gets put right.",
   },
 ];

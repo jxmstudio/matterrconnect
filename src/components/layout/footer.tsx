@@ -10,12 +10,12 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-border bg-stone/60">
+    <footer className="dark mt-auto border-t border-border bg-background">
       <div className="container-editorial py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <Link href="/" className="inline-block text-xl">
-              <Wordmark />
+              <Wordmark onDark />
               <span className="sr-only">{site.name} — home</span>
             </Link>
 
