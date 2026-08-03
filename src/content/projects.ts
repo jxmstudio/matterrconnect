@@ -30,6 +30,12 @@ export type Project = {
   serviceSlug: Service["slug"];
   year: string;
   summary: string;
+  /**
+   * Short note on how this job relates to its service, shown in place of the
+   * summary in the "related work" strip on the matching service page. Written
+   * per-job by the client; when absent the card falls back to `summary`.
+   */
+  relation?: string;
   body: string[];
   /** Card and hero image for the project. */
   cover: ProjectImage;
@@ -105,6 +111,36 @@ export const projects: Project[] = [
       alt: "Finished garden studio interior with lined walls, recessed ceiling lighting, armchairs, bookshelves and a tapestry",
     },
     featured: true,
+  },
+  {
+    slug: "pole-shed-bathroom",
+    title: "Pole shed bathroom",
+    location: "Bay of Plenty",
+    serviceSlug: "renovations-structural-repairs",
+    year: "2026",
+    summary:
+      "A working pole shed that needed a proper bathroom, fitted out with modern gear that still suits the shed's timber.",
+    relation:
+      "Client had an existing pole shed that needed a bathroom. We came in and made it happen. Modern amenities that still fit the rustic theme of the shed.",
+    body: [
+      "The client had a pole shed and wanted a bathroom put into it, so we fitted one out from scratch.",
+      "The fittings are modern. A glass shower, a wall-hung vanity, a round mirror and a pendant light. They all sit against the shed's original ply lining, so it still feels like part of the shed rather than a box dropped inside it.",
+    ],
+    cover: {
+      src: "/images/projects/pole-shed-bathroom.jpg",
+      alt: "Bathroom built inside a pole shed, with plywood walls, a glass shower, white vanity and round mirror",
+    },
+    gallery: [
+      {
+        src: "/images/projects/pole-shed-bathroom-shower.jpg",
+        alt: "Corner glass shower in the pole shed bathroom, with ply-lined walls and a small window",
+      },
+      {
+        src: "/images/projects/pole-shed-bathroom-vanity.jpg",
+        alt: "Wall-hung vanity, round mirror and toilet against the shed's plywood lining",
+      },
+    ],
+    featured: false,
   },
 ];
 

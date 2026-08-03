@@ -127,7 +127,12 @@ export default async function ServicePage({ params }: Params) {
             </Reveal>
             <ul className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((project, i) => (
-                <ProjectCard key={project.slug} project={project} index={i} />
+                <ProjectCard
+                  key={project.slug}
+                  project={project}
+                  index={i}
+                  description={project.relation}
+                />
               ))}
             </ul>
           </div>

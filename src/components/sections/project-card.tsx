@@ -10,11 +10,14 @@ export function ProjectCard({
   index = 0,
   priority = false,
   className,
+  description,
 }: {
   project: Project;
   index?: number;
   priority?: boolean;
   className?: string;
+  /** Overrides the card blurb (e.g. a service-specific relation note). */
+  description?: string;
 }) {
   return (
     <Reveal as="li" delay={index * 80} className={cn("group", className)}>
@@ -45,7 +48,7 @@ export function ProjectCard({
         </h3>
 
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          {project.summary}
+          {description ?? project.summary}
         </p>
       </Link>
     </Reveal>

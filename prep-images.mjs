@@ -8,14 +8,16 @@ import sharp from "sharp";
 import { readFile, mkdir } from "node:fs/promises";
 
 const SRC = "C:/Users/alexn/Desktop/matter-cnnetc-photos";
+// Second batch, supplied later with the website-proposal thread.
+const SRC2 = "C:/Users/alexn/Downloads/regreatchattingtodayjackyourwebsiteproposalattac";
 
 await mkdir("public/images/projects", { recursive: true });
 await mkdir("public/images/team", { recursive: true });
 await mkdir("public/images/brand", { recursive: true });
 
 /** Read a source photo as a JPEG buffer, converting from HEIC when needed. */
-async function load(name) {
-  const buf = await readFile(`${SRC}/${name}`);
+async function load(name, dir = SRC) {
+  const buf = await readFile(`${dir}/${name}`);
   if (/\.heic$/i.test(name)) {
     return Buffer.from(await convert({ buffer: buf, format: "JPEG", quality: 1 }));
   }
@@ -51,6 +53,11 @@ await cover(await load("IMG_0719.jpg"), "images/projects/timber-entrance-deck.jp
 
 // --- New: garden studio fit-out (originally HEIC) ------------------------
 await cover(await load("IMG_0205.HEIC"), "images/projects/garden-studio-fitout.jpg");
+
+// --- New: bathroom fitted into a pole shed (second batch) ----------------
+await cover(await load("IMG_0212.HEIC", SRC2), "images/projects/pole-shed-bathroom.jpg");
+await cover(await load("IMG_0216.HEIC", SRC2), "images/projects/pole-shed-bathroom-shower.jpg");
+await cover(await load("IMG_0215.HEIC", SRC2), "images/projects/pole-shed-bathroom-vanity.jpg");
 
 // --- Founder portrait for the About page ---------------------------------
 await sharp(await load("untitled-2333.JPEG"))
