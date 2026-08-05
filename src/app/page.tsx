@@ -9,6 +9,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { HeroCarousel } from "@/components/sections/hero-carousel";
 import { ProjectCard } from "@/components/sections/project-card";
 import { ServiceArea } from "@/components/sections/service-area";
+import { SocialFeed } from "@/components/sections/social-feed";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { TestimonialsCarousel } from "@/components/sections/testimonials-carousel";
 import { featuredServices } from "@/content/services";
@@ -126,6 +127,11 @@ export default function HomePage() {
           </ul>
         </div>
       </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* Instagram grid                                                      */}
+      {/* ------------------------------------------------------------------ */}
+      <SocialFeed />
 
       {/* ------------------------------------------------------------------ */}
       {/* Story teaser                                                        */}

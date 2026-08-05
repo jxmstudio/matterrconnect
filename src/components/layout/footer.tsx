@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 
 import { Wordmark } from "@/components/layout/wordmark";
+import { SocialIcon } from "@/components/social-icons";
 import { TrustBadges } from "@/components/trust-badges";
 import { areas } from "@/content/areas";
 import { site } from "@/content/site";
@@ -77,16 +78,17 @@ export function Footer() {
               </li>
             </ul>
 
-            <ul className="mt-8 flex gap-6">
+            <ul className="mt-8 flex gap-3">
               {site.socials.map((social) => (
                 <li key={social.href}>
                   <a
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-clay hover:underline"
+                    aria-label={`${site.name} on ${social.label}`}
+                    className="grid size-10 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-clay hover:text-clay focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                   >
-                    {social.label}
+                    <SocialIcon label={social.label} />
                   </a>
                 </li>
               ))}
