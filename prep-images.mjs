@@ -59,6 +59,11 @@ await cover(await load("IMG_0212.HEIC", SRC2), "images/projects/pole-shed-bathro
 await cover(await load("IMG_0216.HEIC", SRC2), "images/projects/pole-shed-bathroom-shower.jpg");
 await cover(await load("IMG_0215.HEIC", SRC2), "images/projects/pole-shed-bathroom-vanity.jpg");
 
+// --- New: door/window reworked to open up the sea view (before / after) ---
+const DL = "C:/Users/alexn/Downloads";
+await cover(await load("IMG_0866.HEIC", DL), "images/projects/door-window-before.jpg");
+await cover(await load("IMG_0220.HEIC", DL), "images/projects/door-window-after.jpg");
+
 // --- Founder portrait for the About page ---------------------------------
 await sharp(await load("untitled-2333.JPEG"))
   .rotate()

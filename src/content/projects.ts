@@ -47,6 +47,66 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "opening-up-to-the-view",
+    title: "Opening up to the view",
+    location: "Bay of Plenty",
+    serviceSlug: "renovations-structural-repairs",
+    year: "2026",
+    summary:
+      "We reworked an existing door and window into one large opening, so the room now looks straight out to the sea.",
+    relation:
+      "Structural changes to the existing door and window to take advantage of the view.",
+    body: [
+      "The room looked out over the coast, but the original door and window openings didn't make the most of it.",
+      "We made the structural changes to turn them into one large opening. Now the view is the first thing you see when you walk in.",
+    ],
+    cover: {
+      src: "/images/projects/door-window-after.jpg",
+      alt: "Bedroom with a large sliding door opening onto a deck and a wide sea view with an island and a tree",
+    },
+    before: {
+      src: "/images/projects/door-window-before.jpg",
+      alt: "The room before, with a smaller window and separate French doors beside a solid wall",
+      caption: "The original window and French doors.",
+    },
+    after: {
+      src: "/images/projects/door-window-after.jpg",
+      alt: "The same wall reworked into one large sliding opening framing the sea view",
+      caption: "Opened up to take in the view.",
+    },
+    featured: true,
+  },
+  {
+    slug: "pole-shed-bathroom",
+    title: "Pole shed bathroom",
+    location: "Bay of Plenty",
+    serviceSlug: "renovations-structural-repairs",
+    year: "2026",
+    summary:
+      "A working pole shed that needed a proper bathroom, fitted out with modern gear that still suits the shed's timber.",
+    relation:
+      "Client had an existing pole shed that needed a bathroom. We came in and made it happen. Modern amenities that still fit the rustic theme of the shed.",
+    body: [
+      "The client had a pole shed and wanted a bathroom put into it, so we fitted one out from scratch.",
+      "The fittings are modern. A glass shower, a wall-hung vanity, a round mirror and a pendant light. They all sit against the shed's original ply lining, so it still feels like part of the shed rather than a box dropped inside it.",
+    ],
+    cover: {
+      src: "/images/projects/pole-shed-bathroom.jpg",
+      alt: "Bathroom built inside a pole shed, with plywood walls, a glass shower, white vanity and round mirror",
+    },
+    gallery: [
+      {
+        src: "/images/projects/pole-shed-bathroom-shower.jpg",
+        alt: "Corner glass shower in the pole shed bathroom, with ply-lined walls and a small window",
+      },
+      {
+        src: "/images/projects/pole-shed-bathroom-vanity.jpg",
+        alt: "Wall-hung vanity, round mirror and toilet against the shed's plywood lining",
+      },
+    ],
+    featured: true,
+  },
+  {
     slug: "bathroom-rebuild-water-damage",
     title: "Bathroom rebuild after water damage",
     location: "Tauranga",
@@ -111,36 +171,6 @@ export const projects: Project[] = [
       alt: "Finished garden studio interior with lined walls, recessed ceiling lighting, armchairs, bookshelves and a tapestry",
     },
     featured: true,
-  },
-  {
-    slug: "pole-shed-bathroom",
-    title: "Pole shed bathroom",
-    location: "Bay of Plenty",
-    serviceSlug: "renovations-structural-repairs",
-    year: "2026",
-    summary:
-      "A working pole shed that needed a proper bathroom, fitted out with modern gear that still suits the shed's timber.",
-    relation:
-      "Client had an existing pole shed that needed a bathroom. We came in and made it happen. Modern amenities that still fit the rustic theme of the shed.",
-    body: [
-      "The client had a pole shed and wanted a bathroom put into it, so we fitted one out from scratch.",
-      "The fittings are modern. A glass shower, a wall-hung vanity, a round mirror and a pendant light. They all sit against the shed's original ply lining, so it still feels like part of the shed rather than a box dropped inside it.",
-    ],
-    cover: {
-      src: "/images/projects/pole-shed-bathroom.jpg",
-      alt: "Bathroom built inside a pole shed, with plywood walls, a glass shower, white vanity and round mirror",
-    },
-    gallery: [
-      {
-        src: "/images/projects/pole-shed-bathroom-shower.jpg",
-        alt: "Corner glass shower in the pole shed bathroom, with ply-lined walls and a small window",
-      },
-      {
-        src: "/images/projects/pole-shed-bathroom-vanity.jpg",
-        alt: "Wall-hung vanity, round mirror and toilet against the shed's plywood lining",
-      },
-    ],
-    featured: false,
   },
 ];
 
