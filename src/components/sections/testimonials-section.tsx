@@ -1,51 +1,22 @@
-import { QuoteIcon } from "lucide-react";
-
+import {
+  GoogleRatingSummary,
+  GoogleReviewCard,
+} from "@/components/google-review";
 import { Reveal } from "@/components/reveal";
 import { CallButton } from "@/components/call-button";
 import { cn } from "@/lib/utils";
 import {
+  googleRating,
   googleReviewsUrl,
   testimonials,
-  type Testimonial,
 } from "@/content/testimonials";
 
-function TestimonialCard({ item, index }: { item: Testimonial; index: number }) {
-  return (
-    <Reveal
-      as="figure"
-      delay={index * 80}
-      className="flex flex-col border-t border-border pt-8"
-    >
-      <QuoteIcon className="size-5 text-clay" aria-hidden="true" />
-      <blockquote className="mt-5 text-lg leading-relaxed text-pretty">
-        {item.quote}
-      </blockquote>
-      <figcaption className="mt-6 text-sm">
-        <span className="font-medium">{item.author}</span>
-        {item.location && (
-          <span className="text-muted-foreground"> · {item.location}</span>
-        )}
-        {item.project && (
-          <span className="mt-1 block text-muted-foreground">
-            {item.project}
-          </span>
-        )}
-        {item.source === "google" && (
-          <span className="mt-1 block text-xs text-muted-foreground">
-            via Google Reviews
-          </span>
-        )}
-      </figcaption>
-    </Reveal>
-  );
-}
-
 /**
- * Renders whatever testimonials exist.
+ * Renders whatever testimonials exist, as Google-style review cards matching
+ * the homepage carousel.
  *
- * The empty state is the expected state right now — see the note in
- * src/content/testimonials.ts. It degrades to an honest prompt rather than a
- * broken or fabricated section.
+ * The empty state degrades to an honest prompt rather than a broken or
+ * fabricated section — see the note in src/content/testimonials.ts.
  */
 export function TestimonialsSection({
   className,
@@ -80,24 +51,20 @@ export function TestimonialsSection({
 
   return (
     <div className={className}>
-      <ul className="grid gap-10 md:grid-cols-2 lg:gap-14">
+      <GoogleRatingSummary
+        value={googleRating.value}
+        count={googleRating.count}
+        href={googleReviewsUrl}
+        className="mb-10"
+      />
+
+      <ul className="grid gap-6 md:grid-cols-2">
         {items.map((item, i) => (
-          <li key={`${item.author}-${i}`}>
-            <TestimonialCard item={item} index={i} />
-          </li>
+          <Reveal as="li" key={`${item.author}-${i}`} delay={i * 80}>
+            <GoogleReviewCard item={item} />
+          </Reveal>
         ))}
       </ul>
-
-      {googleReviewsUrl && (
-        <a
-          href={googleReviewsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-12 inline-block text-sm font-medium text-clay underline-offset-4 hover:underline"
-        >
-          Read all our Google reviews →
-        </a>
-      )}
     </div>
   );
 }
