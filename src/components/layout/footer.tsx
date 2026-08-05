@@ -3,6 +3,7 @@ import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 
 import { Wordmark } from "@/components/layout/wordmark";
 import { TrustBadges } from "@/components/trust-badges";
+import { areas } from "@/content/areas";
 import { site } from "@/content/site";
 import { services } from "@/content/services";
 
@@ -93,7 +94,23 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 border-t border-border pt-8">
+          <h2 className="eyebrow">Areas we serve</h2>
+          <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+            {areas.map((area) => (
+              <li key={area.slug}>
+                <Link
+                  href={`/areas/${area.slug}`}
+                  className="text-sm text-muted-foreground transition-colors hover:text-clay"
+                >
+                  {area.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-4 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.legalName}. All rights reserved.
           </p>

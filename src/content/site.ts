@@ -7,6 +7,8 @@
  * Source: client onboarding response ("website information.pdf", July 2026).
  */
 
+import { areaNames } from "./areas";
+
 export const site = {
   /**
    * The trading name as it appears on the site. Note the onboarding form gives
@@ -38,17 +40,12 @@ export const site = {
     region: "Bay of Plenty",
     country: "New Zealand",
     countryCode: "NZ",
-    /** Used for the service-area section and LocalBusiness `areaServed`. */
-    areasServed: [
-      "Tauranga",
-      "Mount Maunganui",
-      "Pāpāmoa",
-      "Bethlehem",
-      "Ōmokoroa",
-      "Te Puke",
-      "Katikati",
-      "Whakatāne",
-    ],
+    /**
+     * LocalBusiness `areaServed` and the homepage strip. Derived from
+     * content/areas.ts so the schema, the strip and the /areas pages stay in
+     * lockstep — edit the area list there, not here.
+     */
+    areasServed: areaNames,
     blurb: "Tauranga and the wider Bay of Plenty",
   },
 
