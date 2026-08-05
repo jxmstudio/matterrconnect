@@ -1,4 +1,5 @@
 import {
+  GoogleProfileButton,
   GoogleRatingSummary,
   GoogleReviewCard,
 } from "@/components/google-review";
@@ -54,7 +55,6 @@ export function TestimonialsSection({
       <GoogleRatingSummary
         value={googleRating.value}
         count={googleRating.count}
-        href={googleReviewsUrl}
         className="mb-10"
       />
 
@@ -65,6 +65,16 @@ export function TestimonialsSection({
           </Reveal>
         ))}
       </ul>
+
+      {googleReviewsUrl && (
+        <Reveal className="mt-10">
+          <GoogleProfileButton href={googleReviewsUrl} />
+          <p className="mt-4 text-sm text-muted-foreground">
+            These reviews are published on Google, where you can read all{" "}
+            {googleRating.count} of them in full.
+          </p>
+        </Reveal>
+      )}
     </div>
   );
 }

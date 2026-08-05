@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
 import {
+  GoogleProfileButton,
   GoogleRatingSummary,
   GoogleReviewCard,
 } from "@/components/google-review";
@@ -55,7 +56,6 @@ export function TestimonialsCarousel({ className }: { className?: string }) {
       <GoogleRatingSummary
         value={googleRating.value}
         count={googleRating.count}
-        href={googleReviewsUrl}
         className="mb-8"
       />
 
@@ -113,6 +113,12 @@ export function TestimonialsCarousel({ className }: { className?: string }) {
           >
             <ArrowRightIcon className="size-4" aria-hidden="true" />
           </button>
+        </div>
+      )}
+
+      {googleReviewsUrl && (
+        <div className="mt-8 flex justify-center">
+          <GoogleProfileButton href={googleReviewsUrl} />
         </div>
       )}
     </div>

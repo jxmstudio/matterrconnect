@@ -177,6 +177,37 @@ export function GoogleReviewCard({
   );
 }
 
+/**
+ * Prominent link out to the Google Business Profile. Seeing the reviews at
+ * their source is what makes them credible, so this is a real button rather
+ * than a buried text link.
+ */
+export function GoogleProfileButton({
+  href,
+  label = "View our Google Business Profile",
+  className,
+}: {
+  href: string;
+  label?: string;
+  className?: string;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        "inline-flex items-center gap-3 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium transition-colors hover:border-clay hover:text-clay focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+        className,
+      )}
+    >
+      <GoogleG className="size-5 shrink-0" />
+      {label}
+      <span aria-hidden="true">→</span>
+    </a>
+  );
+}
+
 /** The rating summary strip — "5.0 ★★★★★ from 8 Google reviews". */
 export function GoogleRatingSummary({
   value,
