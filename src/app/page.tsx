@@ -10,7 +10,7 @@ import { HeroCarousel } from "@/components/sections/hero-carousel";
 import { ProjectCard } from "@/components/sections/project-card";
 import { ServiceArea } from "@/components/sections/service-area";
 import { ServicesGrid } from "@/components/sections/services-grid";
-import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { TestimonialsCarousel } from "@/components/sections/testimonials-carousel";
 import { featuredServices } from "@/content/services";
 import { featuredProjects, projects } from "@/content/projects";
 import { site } from "@/content/site";
@@ -175,7 +175,7 @@ export default function HomePage() {
               Ask the people we&apos;ve built for
             </h2>
           </Reveal>
-          <TestimonialsSection className="mt-14" limit={2} />
+          <TestimonialsCarousel className="mt-14" />
         </div>
       </section>
 
