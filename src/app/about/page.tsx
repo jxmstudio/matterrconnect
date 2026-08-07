@@ -56,6 +56,21 @@ export default function AboutPage() {
                   Jack, founder of Matter Construction
                 </p>
               </Reveal>
+
+              <Reveal className="mt-8" delay={80}>
+                <div className="relative aspect-[2/3] overflow-hidden bg-stone">
+                  <Image
+                    src="/images/team/van.jpg"
+                    alt="A Matter Construction team member hopping into the branded work van, ready for the next job"
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  On the road to the next job
+                </p>
+              </Reveal>
             </div>
 
             <Reveal className="md:col-span-8">
