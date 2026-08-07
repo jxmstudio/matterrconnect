@@ -81,7 +81,7 @@ export default async function ProjectPage({ params }: Params) {
       </PageHeader>
 
       {/* Before / after. The whole point of the gallery — it shows the work
-          nobody sees once the linings go back on. Drag the handle to compare. */}
+          nobody sees once the linings go back on. Click through to compare. */}
       {project.before && project.after && (
         <section className="border-b border-border">
           <div className="container-editorial py-16 md:py-24">

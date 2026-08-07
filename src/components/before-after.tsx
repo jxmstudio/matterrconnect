@@ -1,18 +1,19 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import type { ProjectImage } from "@/content/projects";
 
+const LABELS = ["Before", "After"] as const;
+
 /**
- * Draggable before/after comparison. The finished shot sits underneath; the
- * "before" is clipped to the handle position with `clip-path`, so both images
- * stay full-size and undistorted — only the reveal width changes.
- *
- * Pointer, touch and keyboard driven (the handle is a real ARIA slider). It's
- * entirely user-initiated, so there's no motion to suppress for reduced-motion.
+ * Click-through before/after comparison. One photo shows at a time — click
+ * the photo, use the arrow buttons, or pick a label to switch — instead of
+ * dragging a reveal handle. Simpler to use on both mobile and desktop, and it
+ * shows each photo at its full, undistorted size rather than a clipped sliver.
  */
 export function BeforeAfter({
   before,
@@ -23,114 +24,94 @@ export function BeforeAfter({
   after: ProjectImage;
   className?: string;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState(50);
-  const [touched, setTouched] = useState(false);
-  const [dragging, setDragging] = useState(false);
+  const images = [before, after];
+  const [index, setIndex] = useState(0);
 
-  const setFromClientX = useCallback((clientX: number) => {
-    const el = containerRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const pct = ((clientX - rect.left) / rect.width) * 100;
-    setPos(Math.min(100, Math.max(0, pct)));
-    setTouched(true);
-  }, []);
+  const go = useCallback(
+    (next: number) => setIndex(((next % images.length) + images.length) % images.length),
+    [images.length],
+  );
+
+  const active = images[index];
 
   return (
     <figure className={className}>
-      <div
-        ref={containerRef}
-        className={cn(
-          "relative aspect-[3/4] w-full touch-none overflow-hidden bg-stone select-none",
-          dragging ? "cursor-grabbing" : "cursor-ew-resize",
-        )}
-        onPointerDown={(e) => {
-          (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-          setDragging(true);
-          setFromClientX(e.clientX);
-        }}
-        onPointerMove={(e) => {
-          if (dragging) setFromClientX(e.clientX);
-        }}
-        onPointerUp={() => setDragging(false)}
-        onPointerCancel={() => setDragging(false)}
+      <button
+        type="button"
+        onClick={() => go(index + 1)}
+        aria-label={`Show ${LABELS[(index + 1) % 2]} photo`}
+        className="group relative block aspect-[3/4] w-full cursor-pointer overflow-hidden bg-stone select-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
       >
-        {/* After (base layer) */}
-        <Image
-          src={after.src}
-          alt={after.alt}
-          fill
-          priority
-          sizes="(min-width: 768px) 36rem, 100vw"
-          className="object-cover"
-        />
-        <span className="absolute top-4 right-4 z-10 bg-ink/85 px-3 py-1 text-xs font-medium tracking-[0.16em] text-[color:var(--canvas)] uppercase">
-          After
-        </span>
-
-        {/* Before (clipped to the handle) */}
-        <div
-          className="absolute inset-0"
-          style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
-        >
+        {images.map((image, i) => (
           <Image
-            src={before.src}
-            alt={before.alt}
+            key={image.src}
+            src={image.src}
+            alt={image.alt}
             fill
+            priority={i === 0}
             sizes="(min-width: 768px) 36rem, 100vw"
-            className="object-cover"
+            aria-hidden={i !== index}
+            className={cn(
+              "object-cover transition-opacity duration-500 ease-out",
+              i === index ? "opacity-100" : "opacity-0",
+            )}
           />
-          <span className="absolute top-4 left-4 z-10 bg-ink/85 px-3 py-1 text-xs font-medium tracking-[0.16em] text-[color:var(--canvas)] uppercase">
-            Before
-          </span>
-        </div>
+        ))}
 
-        {/* Handle */}
-        <div
-          className="pointer-events-none absolute inset-y-0 z-20 w-0.5 bg-[color:var(--canvas)]"
-          style={{ left: `${pos}%`, transform: "translateX(-50%)" }}
-        >
-          <div
-            role="slider"
-            tabIndex={0}
-            aria-label="Reveal more of the before or after photo"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={Math.round(pos)}
-            aria-valuetext={`${Math.round(pos)}% before revealed`}
-            onKeyDown={(e) => {
-              const step = e.shiftKey ? 10 : 4;
-              if (e.key === "ArrowLeft") setPos((p) => Math.max(0, p - step));
-              else if (e.key === "ArrowRight") setPos((p) => Math.min(100, p + step));
-              else if (e.key === "Home") setPos(0);
-              else if (e.key === "End") setPos(100);
-              else return;
-              e.preventDefault();
-              setTouched(true);
-            }}
-            className="pointer-events-auto absolute top-1/2 left-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize place-items-center rounded-full bg-[color:var(--canvas)] text-ink shadow-lg outline-none focus-visible:ring-2 focus-visible:ring-clay focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M9 7l-5 5 5 5M15 7l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-        </div>
-
-        {/* One-time hint */}
-        <div
+        <span
+          aria-live="polite"
           className={cn(
-            "pointer-events-none absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-ink/85 px-4 py-1.5 text-xs font-medium tracking-wide text-[color:var(--canvas)] transition-opacity duration-500",
-            touched ? "opacity-0" : "opacity-100",
+            "absolute top-4 z-10 bg-ink/85 px-3 py-1 text-xs font-medium tracking-[0.16em] text-[color:var(--canvas)] uppercase",
+            index === 0 ? "left-4" : "right-4",
           )}
         >
-          Drag to compare
+          {LABELS[index]}
+        </span>
+
+        <span className="pointer-events-none absolute inset-0 bg-ink/0 transition-colors group-hover:bg-ink/5" />
+      </button>
+
+      <div className="mt-4 flex items-center justify-center gap-6">
+        <button
+          type="button"
+          onClick={() => go(index - 1)}
+          aria-label="Previous photo"
+          className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-clay hover:text-clay focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >
+          <ArrowLeftIcon className="size-4" aria-hidden="true" />
+        </button>
+
+        <div className="flex gap-2" role="tablist" aria-label="Choose photo">
+          {LABELS.map((label, i) => (
+            <button
+              key={label}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              onClick={() => go(i)}
+              className={cn(
+                "px-1 text-xs font-medium tracking-[0.1em] uppercase transition-colors",
+                i === index ? "text-clay" : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {label}
+            </button>
+          ))}
         </div>
+
+        <button
+          type="button"
+          onClick={() => go(index + 1)}
+          aria-label="Next photo"
+          className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-clay hover:text-clay focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >
+          <ArrowRightIcon className="size-4" aria-hidden="true" />
+        </button>
       </div>
 
-      {after.caption && (
-        <figcaption className="mt-4 text-sm leading-relaxed text-muted-foreground">
-          {after.caption}
+      {active.caption && (
+        <figcaption className="mt-4 text-center text-sm leading-relaxed text-muted-foreground">
+          {active.caption}
         </figcaption>
       )}
     </figure>
