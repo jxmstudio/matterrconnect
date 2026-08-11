@@ -4,6 +4,10 @@ import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
 
 import { Analytics } from "@/components/analytics";
+import {
+  GoogleTagManager,
+  GoogleTagManagerNoScript,
+} from "@/components/google-tag-manager";
 import { JsonLd } from "@/components/json-ld";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
@@ -64,6 +68,8 @@ export default function RootLayout({
       className={`${display.variable} ${body.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col pb-16 lg:pb-0">
+        {/* GTM's noscript fallback, which has to sit immediately after <body>. */}
+        <GoogleTagManagerNoScript />
         <JsonLd data={localBusinessJsonLd()} />
         <a
           href="#main"
@@ -78,6 +84,7 @@ export default function RootLayout({
         <Footer />
         <MobileCtaBar />
         <Toaster position="top-center" />
+        <GoogleTagManager />
         <Analytics />
       </body>
     </html>

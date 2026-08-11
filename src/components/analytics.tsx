@@ -31,10 +31,17 @@ export function Analytics() {
 
       const action = target.getAttribute("data-analytics");
       const location = target.getAttribute("data-analytics-location") ?? "unknown";
+      const eventName = action === "call" ? "click_to_call" : "quote_intent";
 
-      window.gtag?.("event", action === "call" ? "click_to_call" : "quote_intent", {
-        placement: location,
-      });
+      // Push to the dataLayer so Tag Manager can trigger on these. Build the
+      // triggers in GTM against the event names `click_to_call` and
+      // `quote_intent`, with `placement` available as a dataLayer variable.
+      window.dataLayer = window.dataLayer ?? [];
+      window.dataLayer.push({ event: eventName, placement: location });
+
+      // Fires only when GA4 is loaded directly (NEXT_PUBLIC_GA_ID set) rather
+      // than through a GTM tag — see the note in google-tag-manager.tsx.
+      window.gtag?.("event", eventName, { placement: location });
     };
 
     document.addEventListener("click", onClick);
