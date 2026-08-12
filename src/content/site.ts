@@ -11,16 +11,15 @@ import { areaNames } from "./areas";
 
 export const site = {
   /**
-   * The trading name as it appears on the site. Note the onboarding form gives
-   * the business name as "Matter Construction" while the domain and the JXM
-   * proposal both say "Matter Connect" — brand follows the client's own
-   * spelling, domain stays as registered.
+   * The trading name as it appears on the site. The original domain was
+   * matterconnect.net, which never matched the trading name; the business has
+   * since moved to matterconstruction.nz, so the two now agree.
    */
   name: "Matter Construction",
   shortName: "Matter",
   legalName: "Matter Construction",
-  domain: "matterconnect.net",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://matterconnect.net",
+  domain: "matterconstruction.nz",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.matterconstruction.nz",
 
   tagline: "Builders in Tauranga & the wider Bay of Plenty",
   description:
@@ -77,8 +76,12 @@ export type Site = typeof site;
 /**
  * The canonical production origin. Anything else — a vercel.app demo, a
  * preview branch, localhost — is treated as a non-public build.
+ *
+ * ⚠️ Must match NEXT_PUBLIC_SITE_URL byte for byte, including the `www.` and
+ * with no trailing slash. The apex (matterconstruction.nz) 308-redirects to
+ * www, so www is the canonical host.
  */
-export const PRODUCTION_URL = "https://matterconnect.net";
+export const PRODUCTION_URL = "https://www.matterconstruction.nz";
 
 /**
  * True whenever the site is running somewhere other than the real domain.
@@ -86,7 +89,7 @@ export const PRODUCTION_URL = "https://matterconnect.net";
  * Demo and preview deployments must not be indexed: Google would otherwise
  * pick up the vercel.app URL as duplicate content, or follow canonicals to a
  * domain that isn't live yet. `robots.ts` and `buildMetadata()` both read this,
- * so indexing switches itself on the moment NEXT_PUBLIC_SITE_URL is set to
- * matterconnect.net at go-live. Nothing to remember to flip.
+ * so indexing switches itself on the moment NEXT_PUBLIC_SITE_URL is set to the
+ * production origin at go-live. Nothing to remember to flip.
  */
 export const isDemoDeployment = site.url !== PRODUCTION_URL;

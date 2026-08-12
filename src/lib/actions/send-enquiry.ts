@@ -13,7 +13,7 @@ import { site } from "@/content/site";
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const ENQUIRY_TO = process.env.ENQUIRY_TO ?? site.email;
-// Must be a domain verified in Resend. Until matterconnect.net is verified,
+// Must be a domain verified in Resend. Until the enquiry domain is verified,
 // Resend's shared onboarding sender works for testing.
 const ENQUIRY_FROM =
   process.env.ENQUIRY_FROM ?? "Matter Construction <onboarding@resend.dev>";

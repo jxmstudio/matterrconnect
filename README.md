@@ -1,4 +1,4 @@
-# Matter Construction — matterconnect.net
+# Matter Construction — matterconstruction.nz
 
 Marketing site for Matter Construction, a licensed building company in Tauranga.
 Built by JXM Studios.
@@ -48,11 +48,12 @@ Copy `.env.example` to `.env.local`. All are optional in development.
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for canonicals, OG tags, sitemap, JSON-LD |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin. Must equal `PRODUCTION_URL` exactly or the build goes noindex |
 | `RESEND_API_KEY` | Enables real enquiry email. Unset → enquiries logged to console |
-| `ENQUIRY_TO` | Where quote requests land (default `info@matterconnect.net`) |
+| `ENQUIRY_TO` | Where quote requests land (⚠️ still on the old domain — confirm) |
 | `ENQUIRY_FROM` | From address — must be on a Resend-verified domain |
-| `NEXT_PUBLIC_GA_ID` | GA4 ID. Unset → no analytics script loads at all |
+| `NEXT_PUBLIC_GTM_ID` | Tag Manager container. Defaults to the real one in code |
+| `NEXT_PUBLIC_GA_ID` | GA4 ID. Leave unset — add GA4 inside GTM instead |
 
 ---
 
@@ -175,19 +176,31 @@ materially affect how good it looks.
 
 ## Launch checklist (account tasks, not code)
 
-- [ ] Create the **Google Business Profile** — name, phone and service area must
-      match `src/content/site.ts` exactly, or the JSON-LD and the map listing
-      will disagree.
-- [ ] Create the **GA4 property**, set `NEXT_PUBLIC_GA_ID`.
-- [ ] Verify **matterconnect.net in Resend**, then set `ENQUIRY_FROM` to a real
-      address on that domain.
-- [ ] Submit the sitemap in **Google Search Console**.
-- [ ] Send a live test enquiry and confirm it reaches `info@matterconnect.net`.
+- [x] Create the **Google Business Profile** — done, 5.0 from 8 reviews, quoted
+      on the site and linked from the testimonials section.
+- [x] Install **Google Tag Manager** (container `GTM-ML32GVVQ`). Add GA4 as a
+      tag inside it rather than setting `NEXT_PUBLIC_GA_ID`, or Analytics loads
+      twice and double-counts page views.
+- [ ] **Set `NEXT_PUBLIC_SITE_URL` to `https://www.matterconstruction.nz`** in
+      Vercel and redeploy. Until this matches `PRODUCTION_URL`, the live site
+      serves `Disallow: /` and `noindex` on every page.
+- [ ] Confirm the **enquiry mailbox** after the move to matterconstruction.nz —
+      `ENQUIRY_TO`, `ENQUIRY_FROM` and `email` in `src/content/site.ts` are all
+      still on the old matterconnect.net domain.
+- [ ] Verify the **enquiry domain in Resend**, then set `ENQUIRY_FROM` to a real
+      address on it.
+- [ ] Submit the sitemap in **Google Search Console** (after the env var is set).
+- [ ] Send a live test enquiry and confirm it reaches the right inbox.
 
 ## Deploying
 
-Built for Vercel. Import the repo, set the environment variables above, and
-point `matterconnect.net` at it. No deploy has been run from this repo.
+Built for Vercel and deployed there. `www.matterconstruction.nz` is the
+canonical host; the apex 308-redirects to it.
+
+`NEXT_PUBLIC_SITE_URL` must be `https://www.matterconstruction.nz` exactly —
+including the `www.` and with no trailing slash. If it doesn't match
+`PRODUCTION_URL` in `src/content/site.ts`, the build is treated as a demo and
+locks itself out of search.
 
 > `npm audit` reports advisories in `postcss` and `sharp`, both transitive
 > dependencies of Next.js itself. `npm audit fix --force` "resolves" them by
