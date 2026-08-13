@@ -9,7 +9,42 @@ type BuildMetadataArgs = {
   path?: string;
   /** Set false on thin or duplicate pages. */
   index?: boolean;
+  /** Headline for the share card, when the page title reads poorly on it. */
+  cardTitle?: string;
+  /** Small label above the share-card headline. Defaults to the location. */
+  cardEyebrow?: string;
 };
+
+/**
+ * Pads a short meta description with a trailing sentence.
+ *
+ * Google truncates around 160 characters and gives very short descriptions
+ * less to work with, so summaries written for on-page use (often under 120)
+ * get a location sentence appended rather than being rewritten twice.
+ */
+export function fitDescription(
+  base: string,
+  suffix: string,
+  min = 120,
+  max = 165,
+) {
+  if (base.length >= min) return base;
+  const padded = `${base} ${suffix}`;
+  // Never pad past the truncation point — a description cut off mid-sentence
+  // reads worse than a short one.
+  return padded.length <= max ? padded : base;
+}
+
+/**
+ * Share-card URL for a page. Every page gets its own: the card route renders
+ * whatever title it's handed, so a shared link never falls back to a generic
+ * image (or, as before, to no image at all).
+ */
+function shareCard(title: string, eyebrow?: string) {
+  const params = new URLSearchParams({ title });
+  if (eyebrow) params.set("eyebrow", eyebrow);
+  return `${site.url}/og?${params.toString()}`;
+}
 
 /**
  * Every page's metadata goes through here so titles, canonicals and OG tags
@@ -21,8 +56,11 @@ export function buildMetadata({
   description,
   path = "/",
   index = true,
+  cardTitle,
+  cardEyebrow,
 }: BuildMetadataArgs): Metadata {
   const url = path === "/" ? site.url : `${site.url}${path}`;
+  const image = shareCard(cardTitle ?? title, cardEyebrow);
 
   return {
     title,
@@ -40,11 +78,13 @@ export function buildMetadata({
       description,
       url,
       locale: "en_NZ",
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [image],
     },
   };
 }
@@ -68,8 +108,13 @@ export function localBusinessJsonLd() {
     url: site.url,
     telephone: site.phone.e164,
     email: site.email,
-    image: `${site.url}/opengraph-image`,
+    image: shareCard(site.tagline),
+    logo: `${site.url}/images/brand/logo.png`,
     priceRange: "$$",
+    // No street address or `geo` on purpose: this is a service-area business
+    // that works out of clients' properties, and Google's own guidance is to
+    // declare the area served rather than publish an address you don't trade
+    // from. `areaServed` below carries that.
     address: {
       "@type": "PostalAddress",
       addressLocality: site.location.base,

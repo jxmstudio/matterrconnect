@@ -11,8 +11,9 @@ import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Request a quote",
-  description: `Get a free, no-obligation quote from Matter Construction. Call ${site.phone.display} or send through the details of your job.`,
+  description: `Get a free, no-obligation quote from Matter Construction, builders in ${site.location.base}. Call ${site.phone.display} or send us the details of your job.`,
   path: "/contact",
+  cardTitle: "Request a quote",
 });
 
 export default function ContactPage() {

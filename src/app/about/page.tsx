@@ -12,8 +12,9 @@ import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "About us",
   description:
-    "Matter Construction is a licensed building company in Tauranga, started by Jack and Anna to do renovation and structural work properly — with quality, efficiency and transparency.",
+    "Matter Construction is a licensed building company in Tauranga, started by Jack and Anna to do renovation and structural work properly.",
   path: "/about",
+  cardTitle: "Built on the way we'd want it done for us",
 });
 
 export default function AboutPage() {

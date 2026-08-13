@@ -12,7 +12,7 @@ import { CallButton } from "@/components/call-button";
 import { getService, services } from "@/content/services";
 import { projectsForService } from "@/content/projects";
 import { site } from "@/content/site";
-import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, fitDescription } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -28,9 +28,16 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!service) return buildMetadata({ title: "Not found", description: "", index: false });
 
   return buildMetadata({
-    title: `${service.title} — ${site.location.base}`,
-    description: service.summary,
+    // shortTitle keeps the rendered <title> inside the ~60 characters Google
+    // shows once the location and site name are appended.
+    title: `${service.shortTitle ?? service.title} — ${site.location.base}`,
+    description: fitDescription(
+      service.summary,
+      `Serving ${site.location.blurb}.`,
+    ),
     path: `/services/${service.slug}`,
+    cardTitle: service.title,
+    cardEyebrow: `${site.location.base} · ${site.location.region}`,
   });
 }
 

@@ -11,8 +11,9 @@ import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Services",
   description:
-    "Renovations and structural repairs, leaky home re-cladding, residential property maintenance, commercial facilities work and residential developments across Tauranga and the Bay of Plenty.",
+    "Renovations, structural repairs, leaky home re-cladding, property maintenance and commercial building work across Tauranga and the Bay of Plenty.",
   path: "/services",
+  cardTitle: "What we take on",
 });
 
 export default function ServicesPage() {

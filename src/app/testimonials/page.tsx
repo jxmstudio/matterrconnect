@@ -10,8 +10,9 @@ import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Testimonials",
   description:
-    "What clients say about working with Matter Construction in Tauranga and the Bay of Plenty.",
+    "Verified Google reviews for Matter Construction, rated 5.0 by clients across Tauranga and the Bay of Plenty. Read what they say about the work.",
   path: "/testimonials",
+  cardTitle: "In our clients' words",
   // Don't ask Google to index a page with nothing on it yet. Flip this to true
   // — or just delete the option — once testimonials.ts has entries.
   index: hasTestimonials,

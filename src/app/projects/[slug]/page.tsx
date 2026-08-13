@@ -13,7 +13,7 @@ import { ProjectCard } from "@/components/sections/project-card";
 import { getProject, projects } from "@/content/projects";
 import { getService } from "@/content/services";
 import { site } from "@/content/site";
-import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, fitDescription } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -32,8 +32,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   // already appends 20 characters and SERPs truncate around 60.
   return buildMetadata({
     title: project.title,
-    description: project.summary,
+    description: fitDescription(
+      project.summary,
+      `Builders in ${site.location.base} and the ${site.location.region}.`,
+    ),
     path: `/projects/${project.slug}`,
+    cardEyebrow: `${project.location} · ${project.year}`,
   });
 }
 

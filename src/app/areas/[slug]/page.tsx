@@ -29,8 +29,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   return buildMetadata({
     title: `Builders in ${area.name}`,
-    description: `Licensed builders serving ${area.name}. Renovations, structural repairs, leaky-home re-cladding and property maintenance across ${area.name} and the wider ${site.location.region}.`,
+    // Kept clear of 165 characters for the longest suburb names — repeating
+    // the name twice pushed Mount Maunganui's description to 175 and Google
+    // cut it off mid-sentence.
+    description: `Licensed builders serving ${area.name}. Renovations, structural repairs, re-cladding and property maintenance across the ${site.location.region}.`,
     path: `/areas/${area.slug}`,
+    cardEyebrow: `Service area · ${site.location.region}`,
   });
 }
 

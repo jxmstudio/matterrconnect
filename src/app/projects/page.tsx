@@ -13,8 +13,9 @@ import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Our work",
   description:
-    "Completed renovation, repair and re-cladding projects by Matter Construction across Tauranga and the Bay of Plenty.",
+    "Completed renovation, repair and re-cladding projects by Matter Construction, with before and after photos from jobs across Tauranga and the Bay of Plenty.",
   path: "/projects",
+  cardTitle: "Recent jobs, start to finish",
 });
 
 export default function ProjectsPage() {

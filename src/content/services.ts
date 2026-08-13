@@ -10,6 +10,12 @@
 export type Service = {
   slug: string;
   title: string;
+  /**
+   * Shorter name used in the <title> tag only. The full title plus the
+   * location and the site name runs past the ~60 characters Google shows, so
+   * the longer services carry an abbreviated form here.
+   */
+  shortTitle?: string;
   /** One line for cards and meta descriptions. */
   summary: string;
   /** Two or three paragraphs for the detail page. */
@@ -24,6 +30,7 @@ export const services: Service[] = [
   {
     slug: "renovations-structural-repairs",
     title: "Renovations & Structural Repairs",
+    shortTitle: "Renovations & Repairs",
     summary:
       "Kitchens, bathrooms, extensions and the structural work behind them — planned properly and finished to a standard you'd put your name on.",
     body: [
@@ -64,6 +71,7 @@ export const services: Service[] = [
   {
     slug: "residential-property-maintenance",
     title: "Residential Property Maintenance",
+    shortTitle: "Property Maintenance",
     summary:
       "The ongoing repairs and small jobs that keep a home sound — done when we say we'll do them.",
     body: [
@@ -84,6 +92,7 @@ export const services: Service[] = [
   {
     slug: "commercial-construction-maintenance",
     title: "Commercial Facilities Construction & Maintenance",
+    shortTitle: "Commercial Construction",
     summary:
       "Fit-outs, alterations and planned maintenance for commercial sites — scheduled around your trading hours, not ours.",
     body: [
