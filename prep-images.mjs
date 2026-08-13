@@ -5,7 +5,7 @@
  */
 import convert from "heic-convert";
 import sharp from "sharp";
-import { readFile, mkdir } from "node:fs/promises";
+import { readFile, mkdir, writeFile } from "node:fs/promises";
 
 const SRC = "C:/Users/alexn/Desktop/matter-cnnetc-photos";
 // Second batch, supplied later with the website-proposal thread.
@@ -103,3 +103,76 @@ async function keyOutBackground(name, out, { toTransparent }) {
 await keyOutBackground("IMG_0171.PNG", "images/brand/logo.png", { toTransparent: [255, 255, 255] });
 // White lockup on navy -> white on transparent (reversed, kept for dark use).
 await keyOutBackground("IMG_0170.PNG", "images/brand/logo-reversed.png", { toTransparent: [30, 40, 74] });
+
+// --- Favicons, cut from the real logo mark ------------------------------
+//
+// Google shows this next to the search result, and falls back to a generic
+// globe when it can't use what it finds. Its guidance is a square that's a
+// multiple of 48px, so these are 48/180/192 rather than an arbitrary size.
+// The "M" is knocked out of the navy shape, so flattening onto white is what
+// makes it read; flattening onto navy would render it invisible.
+//
+// The mark occupies x 0-144, y 3-147 of the trimmed lockup (measured from the
+// alpha channel — re-measure if the logo asset is ever replaced).
+const MARK = { left: 0, top: 3, width: 145, height: 145 };
+
+async function faviconPng(px) {
+  // The M's legs run to the very bottom of the mark by design, which reads as
+  // clipped once it's 48px in a search result. Inset it and pad with white so
+  // the whole letterform sits inside the square.
+  const inner = Math.round(px * 0.82);
+  const pad = Math.round((px - inner) / 2);
+
+  const mark = await sharp("public/images/brand/logo.png")
+    .extract(MARK)
+    .flatten({ background: "#ffffff" })
+    .resize(inner, inner)
+    .toBuffer();
+
+  return sharp(mark)
+    .extend({
+      top: pad,
+      bottom: px - inner - pad,
+      left: pad,
+      right: px - inner - pad,
+      background: "#ffffff",
+    })
+    // Flattening onto white drops the alpha channel, but an ICO payload has to
+    // be RGBA — without this the build fails decoding favicon.ico.
+    .ensureAlpha()
+    .png()
+    .toBuffer();
+}
+
+await sharp(await faviconPng(192)).toFile("src/app/icon.png");
+console.log("wrote src/app/icon.png (192x192)");
+
+await sharp(await faviconPng(180)).toFile("src/app/apple-icon.png");
+console.log("wrote src/app/apple-icon.png (180x180)");
+
+/**
+ * Wrap a PNG in an ICO container. Modern .ico files may hold PNG data
+ * directly, so this is a 22-byte header rather than a bitmap re-encode —
+ * cheaper than pulling in an ICO dependency for one file.
+ */
+function pngToIco(png, px) {
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0); // reserved
+  header.writeUInt16LE(1, 2); // type: icon
+  header.writeUInt16LE(1, 4); // image count
+
+  const entry = Buffer.alloc(16);
+  entry.writeUInt8(px, 0); // width
+  entry.writeUInt8(px, 1); // height
+  entry.writeUInt8(0, 2); // palette colours (0 = none)
+  entry.writeUInt8(0, 3); // reserved
+  entry.writeUInt16LE(1, 4); // colour planes
+  entry.writeUInt16LE(32, 6); // bits per pixel
+  entry.writeUInt32LE(png.length, 8); // payload size
+  entry.writeUInt32LE(header.length + entry.length, 12); // payload offset
+
+  return Buffer.concat([header, entry, png]);
+}
+
+await writeFile("src/app/favicon.ico", pngToIco(await faviconPng(48), 48));
+console.log("wrote src/app/favicon.ico (48x48)");
