@@ -3,16 +3,19 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowRightIcon } from "lucide-react";
 
+import { CheckIcon } from "lucide-react";
+
 import { CallButton } from "@/components/call-button";
 import { JsonLd } from "@/components/json-ld";
 import { Reveal } from "@/components/reveal";
 import { CtaBand } from "@/components/sections/cta-band";
+import { FaqList } from "@/components/sections/faq";
 import { PageHeader } from "@/components/sections/page-header";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { areas, getArea } from "@/content/areas";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
-import { breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, faqJsonLd } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -68,6 +71,7 @@ export default async function AreaPage({ params }: Params) {
           url: `${site.url}/areas/${area.slug}`,
         }}
       />
+      <JsonLd data={faqJsonLd(area.faqs)} />
 
       <PageHeader
         eyebrow={`Service area · ${site.location.region}`}
@@ -82,17 +86,75 @@ export default async function AreaPage({ params }: Params) {
         <CallButton className="mt-10" size="xl" location={`area-${area.slug}`} />
       </PageHeader>
 
+      {/* Area-specific prose. This is the section that makes each location
+          page genuinely different from the others — see the note in
+          content/areas.ts about why that matters. */}
       <section className="border-b border-border">
+        <div className="container-editorial py-20 md:py-28">
+          <div className="grid gap-12 md:grid-cols-12">
+            <div className="md:col-span-4">
+              <p className="eyebrow">Building in {area.name}</p>
+              <dl className="mt-8 space-y-5 text-sm">
+                <div>
+                  <dt className="text-muted-foreground">Consent authority</dt>
+                  <dd className="mt-1 font-medium">{area.council}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Based in</dt>
+                  <dd className="mt-1 font-medium">{site.location.base}</dd>
+                </div>
+              </dl>
+            </div>
+
+            <Reveal className="md:col-span-8">
+              <div className="measure space-y-6 text-base leading-relaxed text-muted-foreground">
+                {area.body.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className={i === 0 ? "text-lg text-foreground" : undefined}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+
+              <div className="mt-10 border-t border-border pt-8">
+                <h2 className="eyebrow">
+                  What we&apos;re usually asked for in {area.name}
+                </h2>
+                <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {area.common.map((item) => (
+                    <li key={item} className="flex gap-3 text-sm leading-relaxed">
+                      <CheckIcon
+                        className="mt-0.5 size-4 shrink-0 text-clay"
+                        aria-hidden="true"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border bg-stone/50">
         <div className="container-editorial py-20 md:py-28">
           <Reveal>
             <p className="eyebrow">What we do here</p>
             <h2 className="mt-5 max-w-2xl text-3xl leading-tight md:text-4xl">
-              The work we take on in {area.name}
+              Every service, available in {area.name}
             </h2>
           </Reveal>
           <ServicesGrid services={services} className="mt-14" />
         </div>
       </section>
+
+      <FaqList
+        faqs={area.faqs}
+        heading={`Building in ${area.name}, answered`}
+      />
 
       <section className="border-b border-border bg-stone/50">
         <div className="container-editorial py-16 md:py-20">

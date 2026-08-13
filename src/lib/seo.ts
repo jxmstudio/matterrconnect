@@ -143,6 +143,28 @@ export function localBusinessJsonLd() {
   };
 }
 
+/**
+ * FAQ structured data.
+ *
+ * This is what makes a page eligible for the "People also ask" boxes and for
+ * being quoted directly in AI answers — the site had none of it, which was the
+ * single biggest gap in how it reads to answer engines.
+ *
+ * Only mark up questions that are genuinely answered in the visible page text.
+ * Marking up answers a visitor can't see is against Google's guidelines.
+ */
+export function faqJsonLd(faqs: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
+}
+
 /** Breadcrumbs help Google render the site hierarchy in results. */
 export function breadcrumbJsonLd(trail: { name: string; path: string }[]) {
   return {
