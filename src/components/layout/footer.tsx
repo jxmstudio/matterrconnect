@@ -114,7 +114,13 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.legalName}. All rights reserved.
+            © {year} {site.legalName}. All rights reserved. Website by{" "}
+            <a
+              href="https://www.jxmstudio.com/"
+              className="transition-colors hover:text-clay"
+            >
+              JXM Studio
+            </a>
           </p>
           <nav aria-label="Footer">
             <ul className="flex flex-wrap gap-x-6 gap-y-2">
