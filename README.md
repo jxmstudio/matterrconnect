@@ -142,16 +142,20 @@ variables, so shadcn components inherit them automatically.
 
 ## Lead capture
 
-`src/lib/actions/send-enquiry.ts` is a server action that validates with Zod,
-rate-limits by IP, and sends via Resend.
+`src/lib/send-enquiry.ts` validates with Zod in the browser and POSTs the
+enquiry to JXM Forms, which stores it, filters spam and emails Jack. There is
+no server code and no API key in the environment — the endpoint key is public
+by design.
 
-- Client validation is UX only — everything is re-validated server-side.
-- A honeypot field catches bots; they get a success response and nothing sends.
-- On a validation failure the server echoes back what the user typed, because
-  React 19 resets a form after its action resolves and losing a typed message
-  loses the enquiry.
-- Rate limiting is in-memory (5 per IP per 10 min). It resets on deploy and
-  isn't shared across serverless instances — fine for an enquiry form.
+- It's a plain async function, not a server action. `useActionState` takes
+  either, so the form keeps its pending state and inline errors.
+- Zod validation here is UX only; JXM re-checks on its side.
+- A honeypot field (`_gotcha`, the name JXM looks for) catches bots; they get a
+  success response and nothing posts.
+- On a validation failure the typed values come back out, because React 19
+  resets a form after its action resolves and losing a typed message loses the
+  enquiry.
+- Rate limiting and spam filtering are JXM's job now.
 
 Call and quote CTAs carry `data-analytics` attributes; a single delegated
 listener in `src/components/analytics.tsx` reports them to GA4 as

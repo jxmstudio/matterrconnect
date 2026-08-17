@@ -9,10 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { sendEnquiry } from "@/lib/actions/send-enquiry";
+import { sendEnquiry } from "@/lib/send-enquiry";
 import type { EnquiryResult } from "@/lib/schema";
 import { serviceOptions } from "@/content/services";
-import { isDemoDeployment, site } from "@/content/site";
+import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 function FieldError({ id, errors }: { id: string; errors?: string[] }) {
@@ -82,26 +82,15 @@ export function QuoteForm({
       className={cn("space-y-6", className)}
     >
       {/*
-        On the demo build the form validates and submits for real, but with no
-        Resend key configured nothing is actually delivered. Saying so beats
-        letting the client test it and wonder where the email went. This
-        disappears on its own once NEXT_PUBLIC_SITE_URL points at the live
-        domain.
+        Honeypot. Hidden from users and from assistive tech; bots fill it in.
+        Named `_gotcha` because that's the field JXM Forms treats as the trap,
+        so one input covers the check here and the one on their side.
       */}
-      {isDemoDeployment && (
-        <p className="border-l-2 border-clay bg-stone/60 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
-          <span className="font-medium text-foreground">Demo site.</span>{" "}
-          The form works, but enquiries aren&apos;t delivered to an inbox yet —
-          that&apos;s switched on at launch.
-        </p>
-      )}
-
-      {/* Honeypot. Hidden from users and from assistive tech; bots fill it in. */}
       <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor={id("company")}>Company (leave blank)</label>
+        <label htmlFor={id("_gotcha")}>Company (leave blank)</label>
         <input
-          id={id("company")}
-          name="company"
+          id={id("_gotcha")}
+          name="_gotcha"
           type="text"
           tabIndex={-1}
           autoComplete="off"

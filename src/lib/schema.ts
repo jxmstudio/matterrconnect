@@ -3,7 +3,7 @@ import { z } from "zod";
 import { serviceOptions } from "@/content/services";
 
 /**
- * Enquiry validation, shared by the client form and the server action.
+ * Enquiry validation for the quote form.
  *
  * Kept deliberately short: every extra required field costs conversions, and
  * the only things Jack actually needs to call someone back are a name, a way
@@ -52,10 +52,13 @@ export const enquirySchema = z.object({
 
   /**
    * Honeypot. Hidden from real users; bots fill it in. Never surfaced as a
-   * validation error — the server silently accepts and discards instead, so
-   * the bot has no signal that it was caught.
+   * validation error — the submit handler silently accepts and discards
+   * instead, so the bot has no signal that it was caught.
+   *
+   * Named `_gotcha` to match the field JXM Forms looks for, so the same input
+   * serves as the trap on both sides.
    */
-  company: z.string().max(0).optional(),
+  _gotcha: z.string().max(0).optional(),
 });
 
 export type EnquiryInput = z.input<typeof enquirySchema>;
