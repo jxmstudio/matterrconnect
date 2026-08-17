@@ -49,9 +49,6 @@ Copy `.env.example` to `.env.local`. All are optional in development.
 | Variable | Purpose |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin. Must equal `PRODUCTION_URL` exactly or the build goes noindex |
-| `RESEND_API_KEY` | Enables real enquiry email. Unset → enquiries logged to console |
-| `ENQUIRY_TO` | Where quote requests land (⚠️ still on the old domain — confirm) |
-| `ENQUIRY_FROM` | From address — must be on a Resend-verified domain |
 | `NEXT_PUBLIC_GTM_ID` | Tag Manager container. Defaults to the real one in code |
 | `NEXT_PUBLIC_GA_ID` | GA4 ID. Leave unset — add GA4 inside GTM instead |
 
@@ -188,13 +185,16 @@ materially affect how good it looks.
 - [ ] **Set `NEXT_PUBLIC_SITE_URL` to `https://www.matterconstruction.nz`** in
       Vercel and redeploy. Until this matches `PRODUCTION_URL`, the live site
       serves `Disallow: /` and `noindex` on every page.
-- [ ] Confirm the **enquiry mailbox** after the move to matterconstruction.nz —
-      `ENQUIRY_TO`, `ENQUIRY_FROM` and `email` in `src/content/site.ts` are all
-      still on the old matterconnect.net domain.
-- [ ] Verify the **enquiry domain in Resend**, then set `ENQUIRY_FROM` to a real
-      address on it.
+- [ ] Confirm **info@matterconstruction.nz** is a mailbox that actually
+      receives. It's shown on the contact page, in the footer and in the
+      LocalBusiness JSON-LD, so if it doesn't exist, anyone who emails instead
+      of using the form bounces. The form itself is unaffected — that goes to
+      JXM Forms.
+- [ ] Check which inbox the **JXM Forms notification** is pointed at in the JXM
+      dashboard, and confirm a test enquiry actually arrives there. The endpoint
+      returns `200 {"ok":true}` on submit, which proves it accepted the payload,
+      not that the email was delivered.
 - [ ] Submit the sitemap in **Google Search Console** (after the env var is set).
-- [ ] Send a live test enquiry and confirm it reaches the right inbox.
 
 ## Deploying
 

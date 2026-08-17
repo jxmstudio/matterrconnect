@@ -32,7 +32,15 @@ export const site = {
     e164: "+64275971725",
   },
 
-  email: "info@matterconnect.net",
+  /**
+   * Shown on the contact page and in the footer, and published in the
+   * LocalBusiness JSON-LD. Moved to matterconstruction.nz with the domain.
+   *
+   * This is a display address only — enquiries from the form go to JXM Forms,
+   * not here. It still needs to be a mailbox someone reads, because it's what
+   * a customer gets when they skip the form and just email.
+   */
+  email: "info@matterconstruction.nz",
 
   location: {
     base: "Tauranga",
