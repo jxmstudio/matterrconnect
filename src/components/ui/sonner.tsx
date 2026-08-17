@@ -1,15 +1,26 @@
 "use client"
 
-import { useTheme } from "next-themes"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "lucide-react"
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
-
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
+      /*
+        Pinned to light because the site is light-only — there's no
+        ThemeProvider and `.dark` is never applied.
+
+        This used to read `useTheme()`, which returns "system" when there's no
+        provider. Sonner then resolved that against the visitor's
+        prefers-color-scheme and stamped data-sonner-theme="dark", which pulled
+        in its dark description colour (#e8e8e8) over a light toast background —
+        1.23:1, effectively invisible. Only the description broke, because the
+        title reads --normal-text below and never fell through to that rule.
+
+        Anyone on a dark-mode OS saw it; anyone on light didn't. If real dark
+        mode is ever added, this goes back to following the resolved theme.
+      */
+      theme="light"
       className="toaster group"
       icons={{
         success: (
