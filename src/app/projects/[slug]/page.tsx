@@ -97,6 +97,28 @@ export default async function ProjectPage({ params }: Params) {
         </section>
       )}
 
+      {/* Projects with no before/after and no video still lead with their
+          photo — otherwise the page is text only. */}
+      {!(project.before && project.after) &&
+        !(project.videos && project.videos.length > 0) && (
+          <section className="border-b border-border">
+            <div className="container-editorial py-16 md:py-24">
+              <Reveal className="mx-auto max-w-xl">
+                <div className="relative aspect-[3/4] overflow-hidden bg-stone">
+                  <Image
+                    src={project.cover.src}
+                    alt={project.cover.alt}
+                    fill
+                    priority
+                    sizes="(min-width: 640px) 36rem, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </Reveal>
+            </div>
+          </section>
+        )}
+
       {project.videos && project.videos.length > 0 && (
         <section className="border-b border-border">
           <div className="container-editorial py-16 md:py-24">
