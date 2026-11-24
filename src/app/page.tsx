@@ -121,7 +121,8 @@ export default function HomePage() {
           </Reveal>
 
           <ul className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredProjects.map((project, i) => (
+            {/* Two full rows; the rest live on /projects. */}
+            {featuredProjects.slice(0, 6).map((project, i) => (
               <ProjectCard key={project.slug} project={project} index={i} />
             ))}
           </ul>

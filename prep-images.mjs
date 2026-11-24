@@ -176,3 +176,15 @@ function pngToIco(png, px) {
 
 await writeFile("src/app/favicon.ico", pngToIco(await faviconPng(48), 48));
 console.log("wrote src/app/favicon.ico (48x48)");
+
+// --- Nov 2026 batch ("website uploads" Drive folder) ----------------------
+// Prepared on the Mac with the same cover() recipe (HEIC went through
+// `sips -s format jpeg` first):
+//   IMG_0462 2.HEIC          -> images/projects/pool-house-deck.jpg
+//   tuaia Street reclad.JPG  -> images/projects/cedar-reclad.jpg
+// Videos (ffmpeg, metadata stripped, +faststart):
+//   37edd920…c60.MOV -> videos/projects/weatherboard-trim-repairs.mp4
+//     -vf scale=720:-2,fps=30 -c:v libx264 -crf 29 -c:a aac -b:a 96k
+//   IMG_0071.MOV     -> videos/projects/opening-up-living-room.mp4
+//     -an -vf scale=720:-2 -c:v libx264 -crf 24
+//   Posters are single frames from each encode (20s and 1.5s in).

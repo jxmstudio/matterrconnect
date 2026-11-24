@@ -6,6 +6,7 @@ import { ArrowRightIcon } from "lucide-react";
 
 import { BeforeAfter } from "@/components/before-after";
 import { JsonLd } from "@/components/json-ld";
+import { ProjectVideo } from "@/components/project-video";
 import { Reveal } from "@/components/reveal";
 import { CtaBand } from "@/components/sections/cta-band";
 import { PageHeader } from "@/components/sections/page-header";
@@ -92,6 +93,20 @@ export default async function ProjectPage({ params }: Params) {
             <Reveal className="mx-auto max-w-xl">
               <BeforeAfter before={project.before} after={project.after} />
             </Reveal>
+          </div>
+        </section>
+      )}
+
+      {project.videos && project.videos.length > 0 && (
+        <section className="border-b border-border">
+          <div className="container-editorial py-16 md:py-24">
+            <ul className="mx-auto grid max-w-xl gap-10">
+              {project.videos.map((video) => (
+                <Reveal as="li" key={video.src}>
+                  <ProjectVideo video={video} />
+                </Reveal>
+              ))}
+            </ul>
           </div>
         </section>
       )}

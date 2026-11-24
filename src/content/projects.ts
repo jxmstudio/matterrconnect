@@ -21,6 +21,18 @@ export type ProjectImage = {
   caption?: string;
 };
 
+export type ProjectVideo = {
+  /** Web-encoded MP4 under public/videos/projects/. */
+  src: string;
+  /** Still shown before the video loads or plays. */
+  poster: string;
+  /** Accessible description of what the clip shows. */
+  label: string;
+  caption?: string;
+  /** Short and silent: plays on a muted loop instead of showing controls. */
+  ambient?: boolean;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -42,6 +54,7 @@ export type Project = {
   before?: ProjectImage;
   after?: ProjectImage;
   gallery?: ProjectImage[];
+  videos?: ProjectVideo[];
   featured: boolean;
 };
 
@@ -74,7 +87,78 @@ export const projects: Project[] = [
       alt: "The same wall reworked into one large sliding opening framing the sea view",
       caption: "Opened up to take in the view.",
     },
+    videos: [
+      {
+        src: "/videos/projects/opening-up-living-room.mp4",
+        poster: "/images/projects/opening-up-living-room.jpg",
+        label: "Short clip panning across the living room and its large windows facing the sea",
+        caption: "The living room, looking out to the same view.",
+        ambient: true,
+      },
+    ],
     featured: true,
+  },
+  {
+    slug: "pool-house-and-deck",
+    title: "Pool house and deck",
+    location: "Bay of Plenty",
+    serviceSlug: "renovations-structural-repairs",
+    year: "2026",
+    summary:
+      "A new weatherboard pool house with big sliding doors, opening onto a hardwood deck beside the pool.",
+    body: [
+      "A new pool house, built in weatherboard with a mono-pitch roof and two sets of black sliding doors.",
+      "Out front, a new hardwood deck runs the full width of the building and meets the existing pool deck.",
+    ],
+    cover: {
+      src: "/images/projects/pool-house-deck.jpg",
+      alt: "New white weatherboard pool house with black sliding doors and a hardwood deck beside a pool",
+    },
+    featured: true,
+  },
+  {
+    slug: "cedar-reclad",
+    title: "Cedar reclad",
+    location: "Bay of Plenty",
+    serviceSlug: "leaky-homes-recladding",
+    year: "2026",
+    summary:
+      "Part of a home reclad in vertical cedar, finished around a large corner window.",
+    body: [
+      "We reclad this section of the house in vertical cedar boards.",
+      "The cedar wraps the corner window and sits against the plaster on the rest of the house, with clean flashings where the two meet.",
+    ],
+    cover: {
+      src: "/images/projects/cedar-reclad.jpg",
+      alt: "Vertical cedar cladding around a large corner window, next to a plastered wall and a garden path",
+    },
+    featured: true,
+  },
+  {
+    slug: "weatherboard-trim-repairs",
+    title: "Weatherboard trim repairs",
+    location: "Bay of Plenty",
+    serviceSlug: "residential-property-maintenance",
+    year: "2026",
+    summary:
+      "Replacing worn weatherboard trims on a family home. Watch the job from start to finish.",
+    body: [
+      "The trims on this weatherboard house had worn out, so we replaced them.",
+      "Each new piece was cut on site to fit, then fixed in place and finished to match the rest of the house.",
+    ],
+    cover: {
+      src: "/images/projects/weatherboard-trim-repairs.jpg",
+      alt: "Cutting new weatherboard trims on a table saw set up on a deck",
+    },
+    videos: [
+      {
+        src: "/videos/projects/weatherboard-trim-repairs.mp4",
+        poster: "/images/projects/weatherboard-trim-repairs.jpg",
+        label: "Video of new weatherboard trims being cut and fitted to a house",
+        caption: "Cutting and fitting the new trims.",
+      },
+    ],
+    featured: false,
   },
   {
     slug: "pole-shed-bathroom",
